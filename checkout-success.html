@@ -1,0 +1,206 @@
+<!-- Tambahkan di bagian bawah checkout.html sebelum </body> -->
+<script>
+    // Handle form submission
+    const checkoutForm = document.querySelector('form');
+    const completeOrderBtn = document.querySelector('button[class*="glow-red"]');
+    
+    if (completeOrderBtn) {
+        completeOrderBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Basic form validation
+            const requiredFields = document.querySelectorAll('input[required], select[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('border-red-500');
+                } else {
+                    field.classList.remove('border-red-500');
+                }
+            });
+            
+            if (!isValid) {
+                // Show error message
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'fixed top-24 right-6 glass p-4 rounded-xl border border-red-500/50 max-w-sm z-50 animate-slideIn';
+                errorDiv.innerHTML = `
+                    <div class="flex items-center">
+                        <i class="bi bi-exclamation-circle text-red-400 text-xl mr-3"></i>
+                        <div>
+                            <p class="font-medium">Please fill in all required fields</p>
+                            <p class="text-sm text-gray-400">Check highlighted fields</p>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(errorDiv);
+                
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 5000);
+                
+                return;
+            }
+            
+            // Show loading state
+            const originalText = completeOrderBtn.textContent;
+            completeOrderBtn.innerHTML = '<i class="bi bi-arrow-clockwise animate-spin mr-2"></i> Processing...';
+            completeOrderBtn.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Redirect to success page
+                window.location.href = 'checkout-success.html';
+            }, 2000);
+        });
+    }
+    
+    // Real-time validation
+    document.querySelectorAll('input, select').forEach(field => {
+        field.addEventListener('input', function() {
+            if (this.value.trim()) {
+                this.classList.remove('border-red-500');
+                this.classList.add('border-red-500');
+                
+                // Remove red border after 2 seconds
+                setTimeout(() => {
+                    this.classList.remove('border-red-500');
+                }, 2000);
+            }
+        });
+    });
+    
+    // Card number formatting
+    const cardNumberInput = document.querySelector('input[placeholder*="1234"]');
+    if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            let matches = value.match(/\d{4,16}/g);
+            let match = matches && matches[0] || '';
+            let parts = [];
+            
+            for (let i=0, len=match.length; i<len; i+=4) {
+                parts.push(match.substring(i, i+4));
+            }
+            
+            if (parts.length) {
+                e.target.value = parts.join(' ');
+            } else {
+                e.target.value = value;
+            }
+        });
+    }
+    
+    // Expiry date formatting
+    const expiryInput = document.querySelector('input[placeholder*="MM/YY"]');
+    if (expiryInput) {
+        expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                e.target.value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+        });
+    }
+</script>
+
+<style>
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    
+    .animate-slideIn {
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    .animate-spin {
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+<!-- Checkout Success Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Order Successful</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+        <style>
+                @keyframes bounce-in {
+                        0% { transform: scale(0.5); opacity: 0; }
+                        100% { transform: scale(1); opacity: 1; }
+                }
+                .bounce-in { animation: bounce-in 0.6s ease-out; }
+                
+                @keyframes slide-down {
+                        0% { transform: translateY(-20px); opacity: 0; }
+                        100% { transform: translateY(0); opacity: 1; }
+                }
+                .slide-down { animation: slide-down 0.5s ease-out; }
+        </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 to-slate-800 min-h-screen flex items-center justify-center p-4">
+        <div class="max-w-md w-full">
+                <!-- Success Card -->
+                <div class="bg-slate-800/50 backdrop-blur-md border border-red-500/30 rounded-2xl p-8 text-center bounce-in">
+                        <!-- Checkmark Icon -->
+                        <div class="mb-6 flex justify-center">
+                                <div class="w-20 h-20 bg-red-500/20 rounded-full flex items-center justify-center border border-red-500/50">
+                                        <i class="bi bi-check-circle text-red-400 text-4xl"></i>
+                                </div>
+                        </div>
+                        
+                        <!-- Success Text -->
+                        <h1 class="text-3xl font-bold text-white mb-2 slide-down">Order Successful!</h1>
+                        <p class="text-gray-400 mb-6">Thank you for your purchase</p>
+                        
+                        <!-- Order Details -->
+                        <div class="bg-slate-700/30 rounded-xl p-4 mb-6 text-left border border-slate-600/50">
+                                <div class="flex justify-between mb-3 pb-3 border-b border-slate-600/50">
+                                        <span class="text-gray-400">Order Number:</span>
+                                        <span class="text-white font-mono">#ORD-2024-12345</span>
+                                </div>
+                                <div class="flex justify-between">
+                                        <span class="text-gray-400">Order Date:</span>
+                                        <span class="text-white" id="orderDate"></span>
+                                </div>
+                        </div>
+                        
+                        <!-- Buttons -->
+                        <div class="space-y-3">
+                                <a href="index.html" class="block w-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-lg hover:shadow-red-500/50">
+                                        <i class="bi bi-house-door mr-2"></i>Back to Home
+                                </a>
+                                <button onclick="window.print()" class="w-full bg-slate-700/50 hover:bg-slate-700 text-white font-semibold py-3 rounded-xl border border-slate-600/50 transition-all duration-300">
+                                        <i class="bi bi-printer mr-2"></i>Print Receipt
+                                </button>
+                        </div>
+                </div>
+        </div>
+
+        <script>
+                document.getElementById('orderDate').textContent = new Date().toLocaleDateString('en-US', { 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric' 
+                });
+        </script>
+</body>
+</html>

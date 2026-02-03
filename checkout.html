@@ -1,605 +1,508 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout - Epstein Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .glass {
+      background: rgba(30, 30, 40, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .glow-red { box-shadow: 0 0 35px -5px rgba(239,68,68,0.45); }
+    .glow-teal { box-shadow: 0 0 35px -5px rgba(239,68,68,0.4); }
+    .magnetic {
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .magnetic:hover {
+      transform: scale(1.06) translateY(-4px);
+    }
+    .checkout-step.active {
+      color: #ef4444;
+    }
+    .checkout-step.active .step-icon {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+  </style>
 </head>
-<body>
-    <!-- Navbar -->
-<header class="sticky top-0 z-50 bg-white shadow-md">
-  <div class="mx-auto flex h-20 max-w-7xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-    <a class="block text-teal-600 font-bold text-xl" href="#">
-      <span class="sr-only">Home</span>
-      <img src="Screenshot-2025-08-14-at-9.19.56-AM-854x675.webp" alt="Profile" class="h-10 w-10 rounded-full object-cover">
-    </a>
+<body class="bg-gradient-to-b from-gray-950 via-gray-900 to-black text-gray-100 min-h-screen">
 
-    <div class="flex flex-1 items-center justify-end md:justify-between">
-      <nav aria-label="Global" class="hidden md:block">
-        <ul class="flex items-center gap-8 text-sm font-medium">
-          <li>
-            <a class="text-gray-600 transition hover:text-red-600" href="#"> Shop </a>
-          </li>
+<!-- NAVBAR -->
+<header class="fixed top-0 left-0 right-0 z-50 glass glow-red transition-all duration-300">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-20 items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="Screenshot-2025-08-14-at-9.19.56-AM-854x675.webp" alt="Epstein" class="h-11 w-11 rounded-full ring-2 ring-red-500/40 group-hover:ring-red-500/70 transition-all duration-500">
+        <span class="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">Epstein</span>
+      </a>
 
-          <li>
-            <a class="text-gray-600 transition hover:text-red-600" href="#"> Men </a>
-          </li>
-
-          <li>
-            <a class="text-gray-600 transition hover:text-red-600" href="#"> Women </a>
-          </li>
-
-          <li>
-            <a class="text-gray-600 transition hover:text-red-600" href="#"> New Arrivals </a>
-          </li>
-
-          <li>
-            <a class="text-gray-600 transition hover:text-red-600" href="#"> Sale </a>
-          </li>
-
-          <li>
-            <a class="text-gray-600 transition hover:text-red-600" href="#"> Accessories </a>
-          </li>
-        </ul>
+      <nav class="hidden md:flex items-center gap-10 text-sm font-medium">
+        <a href="#" class="hover:text-red-400 transition-colors">Shop</a>
+        <a href="#" class="hover:text-red-400 transition-colors">Men</a>
+        <a href="#" class="hover:text-red-400 transition-colors">Women</a>
+        <a href="product.html" class="hover:text-red-400 transition-colors">New Arrivals</a>
+        <a href="#" class="hover:text-red-400 transition-colors">Sale</a>
       </nav>
 
-      <div class="flex items-center gap-4">
-        <div class="sm:flex sm:gap-4">
-          <a class="block rounded-md bg-red-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-red-700" href="#">
-            Login
-          </a>
-
-          <a class="hidden rounded-md bg-red-100 px-5 py-2.5 text-sm font-medium text-red-600 transition hover:text-red-600/75 sm:block" href="#">
-            Register
-          </a>
-
-          <a class="hidden rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-gray-600 transition hover:text-gray-600/75 sm:block" href="cart.html">
-            <i class="bi bi-cart"></i>
-          </a>
-        </div>
-
-        <button class="block rounded-sm bg-gray-100 p-2.5 text-gray-600 transition hover:text-gray-600/75 md:hidden">
-          <span class="sr-only">Toggle menu</span>
-          <svg xmlns="http://www.w3.org/2000/svg" class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
+      <div class="flex items-center gap-5">
+        <a href="#" class="hidden sm:block px-5 py-2.5 rounded-full bg-red-600/90 hover:bg-red-700 transition-all glow-red font-medium text-sm">Login</a>
+        <a href="cart.html" class="p-3 rounded-full hover:bg-white/10 transition-all relative">
+          <i class="bi bi-bag text-xl"></i>
+          <span class="absolute -top-1 -right-1 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+        </a>
+        <button class="md:hidden p-2 rounded-lg hover:bg-white/10">
+          <i class="bi bi-list text-2xl"></i>
         </button>
       </div>
     </div>
   </div>
 </header>
-     <!-- End Navbar -->
-        <!-- Checkout -->
-        <section class="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-  <form action="#" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-    <ol class="items-center flex w-full max-w-2xl text-center text-sm font-medium text-gray-500 dark:text-gray-400 sm:text-base">
-      <li class="after:border-1 flex items-center text-primary-700 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-gray-200 dark:text-primary-500 dark:after:border-gray-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
-        <span class="flex items-center after:mx-2 after:text-gray-200 after:content-['/'] dark:after:text-gray-500 sm:after:hidden">
-          <svg class="me-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          Cart
-        </span>
-      </li>
 
-      <li class="after:border-1 flex items-center text-primary-700 after:mx-6 after:hidden after:h-1 after:w-full after:border-b after:border-gray-200 dark:text-primary-500 dark:after:border-gray-700 sm:after:inline-block sm:after:content-[''] md:w-full xl:after:mx-10">
-        <span class="flex items-center after:mx-2 after:text-gray-200 after:content-['/'] dark:after:text-gray-500 sm:after:hidden">
-          <svg class="me-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-          </svg>
-          Checkout
-        </span>
-      </li>
-
-      <li class="flex shrink-0 items-center">
-        <svg class="me-2 h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
-        Order summary
-      </li>
-    </ol>
-
-    <div class="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
-      <div class="min-w-0 flex-1 space-y-8">
-        <div class="space-y-4">
-          <h2 class="text-xl font-semibold text-gray-900 dark:text-white">Delivery Details</h2>
-
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div>
-              <label for="your_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Your name </label>
-              <input type="text" id="your_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Bonnie Green" required />
-            </div>
-
-            <div>
-              <label for="your_email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Your email* </label>
-              <input type="email" id="your_email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="name@flowbite.com" required />
-            </div>
-
-            <div>
-              <div class="mb-2 flex items-center gap-2">
-                <label for="select-country-input-3" class="block text-sm font-medium text-gray-900 dark:text-white"> Country* </label>
-              </div>
-              <select id="select-country-input-3" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500">
-                <option selected>United States</option>
-                <option value="AS">Australia</option>
-                <option value="FR">France</option>
-                <option value="ES">Spain</option>
-                <option value="UK">United Kingdom</option>
-              </select>
-            </div>
-
-            <div>
-              <div class="mb-2 flex items-center gap-2">
-                <label for="select-city-input-3" class="block text-sm font-medium text-gray-900 dark:text-white"> City* </label>
-              </div>
-              <select id="select-city-input-3" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500">
-                <option selected>San Francisco</option>
-                <option value="NY">New York</option>
-                <option value="LA">Los Angeles</option>
-                <option value="CH">Chicago</option>
-                <option value="HU">Houston</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="phone-input-3" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Phone Number* </label>
-              <div class="flex items-center">
-                <button id="dropdown-phone-button-3" data-dropdown-toggle="dropdown-phone-3" class="z-10 inline-flex shrink-0 items-center rounded-s-lg border border-gray-300 bg-gray-100 px-4 py-2.5 text-center text-sm font-medium text-gray-900 hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-700" type="button">
-                  <svg fill="none" aria-hidden="true" class="me-2 h-4 w-4" viewBox="0 0 20 15">
-                    <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                      <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                    </mask>
-                    <g mask="url(#a)">
-                      <path fill="#D02F44" fill-rule="evenodd" d="M19.6.5H0v.933h19.6V.5zm0 1.867H0V3.3h19.6v-.933zM0 4.233h19.6v.934H0v-.934zM19.6 6.1H0v.933h19.6V6.1zM0 7.967h19.6V8.9H0v-.933zm19.6 1.866H0v.934h19.6v-.934zM0 11.7h19.6v.933H0V11.7zm19.6 1.867H0v.933h19.6v-.933z" clip-rule="evenodd" />
-                      <path fill="#46467F" d="M0 .5h8.4v6.533H0z" />
-                      <g filter="url(#filter0_d_343_121520)">
-                        <path
-                          fill="url(#paint0_linear_343_121520)"
-                          fill-rule="evenodd"
-                          d="M1.867 1.9a.467.467 0 11-.934 0 .467.467 0 01.934 0zm1.866 0a.467.467 0 11-.933 0 .467.467 0 01.933 0zm1.4.467a.467.467 0 100-.934.467.467 0 000 .934zM7.467 1.9a.467.467 0 11-.934 0 .467.467 0 01.934 0zM2.333 3.3a.467.467 0 100-.933.467.467 0 000 .933zm2.334-.467a.467.467 0 11-.934 0 .467.467 0 01.934 0zm1.4.467a.467.467 0 100-.933.467.467 0 000 .933zm1.4.467a.467.467 0 11-.934 0 .467.467 0 01.934 0zm-2.334.466a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.466a.467.467 0 11-.933 0 .467.467 0 01.933 0zM1.4 4.233a.467.467 0 100-.933.467.467 0 000 .933zm1.4.467a.467.467 0 11-.933 0 .467.467 0 01.933 0zm1.4.467a.467.467 0 100-.934.467.467 0 000 .934zM6.533 4.7a.467.467 0 11-.933 0 .467.467 0 01.933 0zM7 6.1a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.467a.467.467 0 11-.933 0 .467.467 0 01.933 0zM3.267 6.1a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.467a.467.467 0 11-.934 0 .467.467 0 01.934 0z"
-                          clip-rule="evenodd"
-                        />
-                      </g>
-                    </g>
-                    <defs>
-                      <linearGradient id="paint0_linear_343_121520" x1=".933" x2=".933" y1="1.433" y2="6.1" gradientUnits="userSpaceOnUse">
-                        <stop stop-color="#fff" />
-                        <stop offset="1" stop-color="#F0F0F0" />
-                      </linearGradient>
-                      <filter id="filter0_d_343_121520" width="6.533" height="5.667" x=".933" y="1.433" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-                        <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                        <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                        <feOffset dy="1" />
-                        <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
-                        <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_343_121520" />
-                        <feBlend in="SourceGraphic" in2="effect1_dropShadow_343_121520" result="shape" />
-                      </filter>
-                    </defs>
-                  </svg>
-                  +1
-                  <svg class="-me-0.5 ms-2 h-4 w-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7" />
-                  </svg>
-                </button>
-                <div id="dropdown-phone-3" class="z-10 hidden w-56 divide-y divide-gray-100 rounded-lg bg-white shadow dark:bg-gray-700">
-                  <ul class="p-2 text-sm font-medium text-gray-700 dark:text-gray-200" aria-labelledby="dropdown-phone-button-2">
-                    <li>
-                      <button type="button" class="inline-flex w-full rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                        <span class="inline-flex items-center">
-                          <svg fill="none" aria-hidden="true" class="me-2 h-4 w-4" viewBox="0 0 20 15">
-                            <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                              <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            </mask>
-                            <g mask="url(#a)">
-                              <path fill="#D02F44" fill-rule="evenodd" d="M19.6.5H0v.933h19.6V.5zm0 1.867H0V3.3h19.6v-.933zM0 4.233h19.6v.934H0v-.934zM19.6 6.1H0v.933h19.6V6.1zM0 7.967h19.6V8.9H0v-.933zm19.6 1.866H0v.934h19.6v-.934zM0 11.7h19.6v.933H0V11.7zm19.6 1.867H0v.933h19.6v-.933z" clip-rule="evenodd" />
-                              <path fill="#46467F" d="M0 .5h8.4v6.533H0z" />
-                              <g filter="url(#filter0_d_343_121520)">
-                                <path
-                                  fill="url(#paint0_linear_343_121520)"
-                                  fill-rule="evenodd"
-                                  d="M1.867 1.9a.467.467 0 11-.934 0 .467.467 0 01.934 0zm1.866 0a.467.467 0 11-.933 0 .467.467 0 01.933 0zm1.4.467a.467.467 0 100-.934.467.467 0 000 .934zM7.467 1.9a.467.467 0 11-.934 0 .467.467 0 01.934 0zM2.333 3.3a.467.467 0 100-.933.467.467 0 000 .933zm2.334-.467a.467.467 0 11-.934 0 .467.467 0 01.934 0zm1.4.467a.467.467 0 100-.933.467.467 0 000 .933zm1.4.467a.467.467 0 11-.934 0 .467.467 0 01.934 0zm-2.334.466a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.466a.467.467 0 11-.933 0 .467.467 0 01.933 0zM1.4 4.233a.467.467 0 100-.933.467.467 0 000 .933zm1.4.467a.467.467 0 11-.933 0 .467.467 0 01.933 0zm1.4.467a.467.467 0 100-.934.467.467 0 000 .934zM6.533 4.7a.467.467 0 11-.933 0 .467.467 0 01.933 0zM7 6.1a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.467a.467.467 0 11-.933 0 .467.467 0 01.933 0zM3.267 6.1a.467.467 0 100-.933.467.467 0 000 .933zm-1.4-.467a.467.467 0 11-.934 0 .467.467 0 01.934 0z"
-                                  clip-rule="evenodd"
-                                />
-                              </g>
-                            </g>
-                            <defs>
-                              <linearGradient id="paint0_linear_343_121520" x1=".933" x2=".933" y1="1.433" y2="6.1" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#fff" />
-                                <stop offset="1" stop-color="#F0F0F0" />
-                              </linearGradient>
-                              <filter id="filter0_d_343_121520" width="6.533" height="5.667" x=".933" y="1.433" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                                <feOffset dy="1" />
-                                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
-                                <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_343_121520" />
-                                <feBlend in="SourceGraphic" in2="effect1_dropShadow_343_121520" result="shape" />
-                              </filter>
-                            </defs>
-                          </svg>
-                          United States (+1)
-                        </span>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="inline-flex w-full rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                        <span class="inline-flex items-center">
-                          <svg class="me-2 h-4 w-4" fill="none" viewBox="0 0 20 15">
-                            <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                              <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            </mask>
-                            <g mask="url(#a)">
-                              <path fill="#0A17A7" d="M0 .5h19.6v14H0z" />
-                              <path fill="#fff" fill-rule="evenodd" d="M-.898-.842L7.467 4.8V-.433h4.667V4.8l8.364-5.642L21.542.706l-6.614 4.46H19.6v4.667h-4.672l6.614 4.46-1.044 1.549-8.365-5.642v5.233H7.467V10.2l-8.365 5.642-1.043-1.548 6.613-4.46H0V5.166h4.672L-1.941.706-.898-.842z" clip-rule="evenodd" />
-                              <path stroke="#DB1F35" stroke-linecap="round" stroke-width=".667" d="M13.067 4.933L21.933-.9M14.009 10.088l7.947 5.357M5.604 4.917L-2.686-.67M6.503 10.024l-9.189 6.093" />
-                              <path fill="#E6273E" fill-rule="evenodd" d="M0 8.9h8.4v5.6h2.8V8.9h8.4V6.1h-8.4V.5H8.4v5.6H0v2.8z" clip-rule="evenodd" />
-                            </g>
-                          </svg>
-                          United Kingdom (+44)
-                        </span>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="inline-flex w-full rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                        <span class="inline-flex items-center">
-                          <svg class="me-2 h-4 w-4" fill="none" viewBox="0 0 20 15" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                              <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            </mask>
-                            <g mask="url(#a)">
-                              <path fill="#0A17A7" d="M0 .5h19.6v14H0z" />
-                              <path fill="#fff" stroke="#fff" stroke-width=".667" d="M0 .167h-.901l.684.586 3.15 2.7v.609L-.194 6.295l-.14.1v1.24l.51-.319L3.83 5.033h.73L7.7 7.276a.488.488 0 00.601-.767L5.467 4.08v-.608l2.987-2.134a.667.667 0 00.28-.543V-.1l-.51.318L4.57 2.5h-.73L.66.229.572.167H0z" />
-                              <path fill="url(#paint0_linear_374_135177)" fill-rule="evenodd" d="M0 2.833V4.7h3.267v2.133c0 .369.298.667.666.667h.534a.667.667 0 00.666-.667V4.7H8.2a.667.667 0 00.667-.667V3.5a.667.667 0 00-.667-.667H5.133V.5H3.267v2.333H0z" clip-rule="evenodd" />
-                              <path fill="url(#paint1_linear_374_135177)" fill-rule="evenodd" d="M0 3.3h3.733V.5h.934v2.8H8.4v.933H4.667v2.8h-.934v-2.8H0V3.3z" clip-rule="evenodd" />
-                              <path
-                                fill="#fff"
-                                fill-rule="evenodd"
-                                d="M4.2 11.933l-.823.433.157-.916-.666-.65.92-.133.412-.834.411.834.92.134-.665.649.157.916-.823-.433zm9.8.7l-.66.194.194-.66-.194-.66.66.193.66-.193-.193.66.193.66-.66-.194zm0-8.866l-.66.193.194-.66-.194-.66.66.193.66-.193-.193.66.193.66-.66-.193zm2.8 2.8l-.66.193.193-.66-.193-.66.66.193.66-.193-.193.66.193.66-.66-.193zm-5.6.933l-.66.193.193-.66-.193-.66.66.194.66-.194-.193.66.193.66-.66-.193zm4.2 1.167l-.33.096.096-.33-.096-.33.33.097.33-.097-.097.33.097.33-.33-.096z"
-                                clip-rule="evenodd"
-                              />
-                            </g>
-                            <defs>
-                              <linearGradient id="paint0_linear_374_135177" x1="0" x2="0" y1=".5" y2="7.5" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#fff" />
-                                <stop offset="1" stop-color="#F0F0F0" />
-                              </linearGradient>
-                              <linearGradient id="paint1_linear_374_135177" x1="0" x2="0" y1=".5" y2="7.033" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#FF2E3B" />
-                                <stop offset="1" stop-color="#FC0D1B" />
-                              </linearGradient>
-                            </defs>
-                          </svg>
-                          Australia (+61)
-                        </span>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="inline-flex w-full rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                        <span class="inline-flex items-center">
-                          <svg class="me-2 h-4 w-4" fill="none" viewBox="0 0 20 15">
-                            <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                              <rect width="19.6" height="14" y=".5" fill="#fff" rx="2" />
-                            </mask>
-                            <g mask="url(#a)">
-                              <path fill="#262626" fill-rule="evenodd" d="M0 5.167h19.6V.5H0v4.667z" clip-rule="evenodd" />
-                              <g filter="url(#filter0_d_374_135180)">
-                                <path fill="#F01515" fill-rule="evenodd" d="M0 9.833h19.6V5.167H0v4.666z" clip-rule="evenodd" />
-                              </g>
-                              <g filter="url(#filter1_d_374_135180)">
-                                <path fill="#FFD521" fill-rule="evenodd" d="M0 14.5h19.6V9.833H0V14.5z" clip-rule="evenodd" />
-                              </g>
-                            </g>
-                            <defs>
-                              <filter id="filter0_d_374_135180" width="19.6" height="4.667" x="0" y="5.167" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                                <feOffset />
-                                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
-                                <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_374_135180" />
-                                <feBlend in="SourceGraphic" in2="effect1_dropShadow_374_135180" result="shape" />
-                              </filter>
-                              <filter id="filter1_d_374_135180" width="19.6" height="4.667" x="0" y="9.833" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
-                                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                                <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
-                                <feOffset />
-                                <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.06 0" />
-                                <feBlend in2="BackgroundImageFix" result="effect1_dropShadow_374_135180" />
-                                <feBlend in="SourceGraphic" in2="effect1_dropShadow_374_135180" result="shape" />
-                              </filter>
-                            </defs>
-                          </svg>
-                          Germany (+49)
-                        </span>
-                      </button>
-                    </li>
-                    <li>
-                      <button type="button" class="inline-flex w-full rounded-md px-3 py-2 text-sm text-gray-500 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">
-                        <span class="inline-flex items-center">
-                          <svg class="me-2 h-4 w-4" fill="none" viewBox="0 0 20 15">
-                            <rect width="19.1" height="13.5" x=".25" y=".75" fill="#fff" stroke="#F5F5F5" stroke-width=".5" rx="1.75" />
-                            <mask id="a" style="mask-type:luminance" width="20" height="15" x="0" y="0" maskUnits="userSpaceOnUse">
-                              <rect width="19.1" height="13.5" x=".25" y=".75" fill="#fff" stroke="#fff" stroke-width=".5" rx="1.75" />
-                            </mask>
-                            <g mask="url(#a)">
-                              <path fill="#F44653" d="M13.067.5H19.6v14h-6.533z" />
-                              <path fill="#1035BB" fill-rule="evenodd" d="M0 14.5h6.533V.5H0v14z" clip-rule="evenodd" />
-                            </g>
-                          </svg>
-                          France (+33)
-                        </span>
-                      </button>
-                    </li>
-                  </ul>
-                </div>
-                <div class="relative w-full">
-                  <input type="text" id="phone-input" class="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:border-s-gray-700  dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Email </label>
-              <input type="email" id="email" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="name@flowbite.com" required />
-            </div>
-
-            <div>
-              <label for="company_name" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Company name </label>
-              <input type="text" id="company_name" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="Flowbite LLC" required />
-            </div>
-
-            <div>
-              <label for="vat_number" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> VAT number </label>
-              <input type="text" id="vat_number" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="DE42313253" required />
-            </div>
-
-            <div class="sm:col-span-2">
-              <button type="submit" class="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700">
-                <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5" />
-                </svg>
-                Add new address
-              </button>
-            </div>
+<!-- Checkout Progress -->
+<section class="pt-32 pb-12">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col md:flex-row justify-between items-center mb-12">
+      <h1 class="text-3xl font-bold mb-6 md:mb-0">Checkout</h1>
+      
+      <div class="flex items-center space-x-8">
+        <div class="flex items-center checkout-step active">
+          <div class="step-icon w-8 h-8 rounded-full flex items-center justify-center mr-2">
+            <i class="bi bi-cart"></i>
           </div>
+          <span class="hidden sm:inline">Cart</span>
         </div>
-
-        <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Payment</h3>
-
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="credit-card" aria-describedby="credit-card-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" checked />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="credit-card" class="font-medium leading-none text-gray-900 dark:text-white"> Credit Card </label>
-                  <p id="credit-card-text" class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">Pay with your credit card</p>
-                </div>
-              </div>
-
-              <div class="mt-4 flex items-center gap-2">
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Delete</button>
-
-                <div class="h-3 w-px shrink-0 bg-gray-200 dark:bg-gray-700"></div>
-
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Edit</button>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="pay-on-delivery" aria-describedby="pay-on-delivery-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="pay-on-delivery" class="font-medium leading-none text-gray-900 dark:text-white"> Payment on delivery </label>
-                  <p id="pay-on-delivery-text" class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">+$15 payment processing fee</p>
-                </div>
-              </div>
-
-              <div class="mt-4 flex items-center gap-2">
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Delete</button>
-
-                <div class="h-3 w-px shrink-0 bg-gray-200 dark:bg-gray-700"></div>
-
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Edit</button>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="paypal-2" aria-describedby="paypal-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="paypal-2" class="font-medium leading-none text-gray-900 dark:text-white"> Paypal account </label>
-                  <p id="paypal-text" class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">Connect to your account</p>
-                </div>
-              </div>
-
-              <div class="mt-4 flex items-center gap-2">
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Delete</button>
-
-                <div class="h-3 w-px shrink-0 bg-gray-200 dark:bg-gray-700"></div>
-
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Edit</button>
-              </div>
-            </div>
+        
+        <div class="h-px w-16 bg-gray-700"></div>
+        
+        <div class="flex items-center checkout-step active">
+          <div class="step-icon w-8 h-8 rounded-full flex items-center justify-center mr-2">
+            <i class="bi bi-truck"></i>
           </div>
+          <span class="hidden sm:inline">Shipping</span>
         </div>
-
-        <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-900 dark:text-white">Delivery Methods</h3>
-
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="dhl" aria-describedby="dhl-text" type="radio" name="delivery-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" checked />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="dhl" class="font-medium leading-none text-gray-900 dark:text-white"> $15 - DHL Fast Delivery </label>
-                  <p id="dhl-text" class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">Get it by Tommorow</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="fedex" aria-describedby="fedex-text" type="radio" name="delivery-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="fedex" class="font-medium leading-none text-gray-900 dark:text-white"> Free Delivery - FedEx </label>
-                  <p id="fedex-text" class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">Get it by Friday, 13 Dec 2023</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="express" aria-describedby="express-text" type="radio" name="delivery-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="express" class="font-medium leading-none text-gray-900 dark:text-white"> $49 - Express Delivery </label>
-                  <p id="express-text" class="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">Get it today</p>
-                </div>
-              </div>
-            </div>
+        
+        <div class="h-px w-16 bg-gray-700"></div>
+        
+        <div class="flex items-center checkout-step">
+          <div class="step-icon w-8 h-8 rounded-full bg-white/10 flex items-center justify-center mr-2">
+            <i class="bi bi-credit-card"></i>
           </div>
-        </div>
-
-        <div>
-          <label for="voucher" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"> Enter a gift card, voucher or promotional code </label>
-          <div class="flex max-w-md items-center gap-4">
-            <input type="text" id="voucher" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500" placeholder="" required />
-            <button type="button" class="flex items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Apply</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
-        <div class="flow-root">
-          <div class="-my-3 divide-y divide-gray-200 dark:divide-gray-800">
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
-              <dd class="text-base font-medium text-gray-900 dark:text-white">$8,094.00</dd>
-            </dl>
-
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
-              <dd class="text-base font-medium text-green-500">0</dd>
-            </dl>
-
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>
-              <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>
-            </dl>
-
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
-              <dd class="text-base font-medium text-gray-900 dark:text-white">$199</dd>
-            </dl>
-
-            <dl class="flex items-center justify-between gap-4 py-3">
-              <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-              <dd class="text-base font-bold text-gray-900 dark:text-white">$8,392.00</dd>
-            </dl>
-          </div>
-        </div>
-
-        <div class="space-y-3">
-          <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Proceed to Payment</button>
-
-          <p class="text-sm font-normal text-gray-500 dark:text-gray-400">One or more items in your cart require an account. <a href="#" title="" class="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">Sign in or create an account now.</a>.</p>
+          <span class="hidden sm:inline">Payment</span>
         </div>
       </div>
     </div>
-  </form>
+  </div>
 </section>
-        <!-- End Checkout -->
-         <!-- Footer -->
- <footer class="bg-gray-900 text-white">
- <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-   <div class="grid grid-cols-1 gap-12 md:grid-cols-4">
-     <!-- Brand Section -->
-     <div>
-       <h3 class="text-lg font-bold text-red-600 mb-4">Epstein Shop</h3>
-       <p class="text-gray-400 text-sm mb-6">Discover premium fashion for every occasion with our curated collection of clothing, accessories, and footwear.</p>
-       <div class="flex gap-4">
-         <a href="#" class="text-gray-400 hover:text-red-600 transition">
-           <svg class="size-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"/></svg>
-         </a>
-         <a href="#" class="text-gray-400 hover:text-red-600 transition">
-           <svg class="size-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"/></svg>
-         </a>
-         <a href="#" class="text-gray-400 hover:text-red-600 transition">
-           <svg class="size-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/></svg>
-         </a>
-       </div>
-     </div>
 
-     <!-- Services -->
-     <div>
-       <h4 class="text-sm font-semibold uppercase tracking-wider mb-6 text-white">Services</h4>
-       <ul class="space-y-3 text-sm">
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Personal Styling</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Size Guide</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Returns & Exchanges</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Gift Cards</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Shipping Info</a></li>
-       </ul>
-     </div>
+<!-- Checkout Form -->
+<section class="pb-20">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Left Column: Forms -->
+      <div class="lg:col-span-2 space-y-8">
+        <!-- Shipping Information -->
+        <div class="glass rounded-2xl p-8">
+          <h2 class="text-xl font-bold mb-6">Shipping Information</h2>
+          
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">First Name</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-2">Last Name</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-2">Email Address</label>
+              <input type="email" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium mb-2">Address</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-2">City</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-2">State</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-2">ZIP Code</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-2">Country</label>
+              <select class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+                <option>United States</option>
+                <option>Canada</option>
+                <option>United Kingdom</option>
+                <option>Australia</option>
+              </select>
+            </div>
+          </div>
+        </div>
 
-     <!-- Company -->
-     <div>
-       <h4 class="text-sm font-semibold uppercase tracking-wider mb-6 text-white">Company</h4>
-       <ul class="space-y-3 text-sm">
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">About Us</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Sustainability</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Career Opportunities</a></li>
-         <li><a href="#" class="text-gray-400 hover:text-red-600 transition">Contact</a></li>
-       </ul>
-     </div>
+        <!-- Shipping Method -->
+        <div class="glass rounded-2xl p-8">
+          <h2 class="text-xl font-bold mb-6">Shipping Method</h2>
+          
+          <div class="space-y-4">
+            <label class="flex items-center justify-between p-4 border border-white/10 rounded-xl cursor-pointer hover:border-red-500 transition">
+              <div class="flex items-center">
+                <input type="radio" name="shipping" class="mr-4" checked>
+                <div>
+                  <div class="font-medium">Standard Shipping</div>
+                  <div class="text-sm text-gray-400">5-7 business days</div>
+                </div>
+              </div>
+              <div class="font-medium">Free</div>
+            </label>
+            
+            <label class="flex items-center justify-between p-4 border border-white/10 rounded-xl cursor-pointer hover:border-red-500 transition">
+              <div class="flex items-center">
+                <input type="radio" name="shipping" class="mr-4">
+                <div>
+                  <div class="font-medium">Express Shipping</div>
+                  <div class="text-sm text-gray-400">2-3 business days</div>
+                </div>
+              </div>
+              <div class="font-medium">$12.99</div>
+            </label>
+            
+            <label class="flex items-center justify-between p-4 border border-white/10 rounded-xl cursor-pointer hover:border-red-500 transition">
+              <div class="flex items-center">
+                <input type="radio" name="shipping" class="mr-4">
+                <div>
+                  <div class="font-medium">Overnight Shipping</div>
+                  <div class="text-sm text-gray-400">Next business day</div>
+                </div>
+              </div>
+              <div class="font-medium">$24.99</div>
+            </label>
+          </div>
+        </div>
 
-     <!-- Contact -->
-     <div>
-       <h4 class="text-sm font-semibold uppercase tracking-wider mb-6 text-white">Contact</h4>
-       <p class="text-gray-400 text-sm mb-4">
-         <a href="tel:+6289635961213" class="hover:text-red-600 transition font-semibold">+62 896-3596-1213</a>
-       </p>
-       <p class="text-gray-400 text-sm mb-2"><span class="font-semibold">Monday to Friday:</span> 10am - 5pm</p>
-       <p class="text-gray-400 text-sm"><span class="font-semibold">Weekend:</span> 10am - 3pm</p>
-     </div>
-   </div>
+        <!-- Payment Method -->
+        <div class="glass rounded-2xl p-8">
+          <h2 class="text-xl font-bold mb-6">Payment Method</h2>
+          
+          <div class="space-y-4">
+            <label class="flex items-center justify-between p-4 border border-white/10 rounded-xl cursor-pointer hover:border-red-500 transition">
+              <div class="flex items-center">
+                <input type="radio" name="payment" class="mr-4" checked>
+                <div class="flex items-center">
+                  <i class="bi bi-credit-card text-2xl mr-3"></i>
+                  <div>
+                    <div class="font-medium">Credit/Debit Card</div>
+                  </div>
+                </div>
+              </div>
+            </label>
+            
+            <label class="flex items-center justify-between p-4 border border-white/10 rounded-xl cursor-pointer hover:border-red-500 transition">
+              <div class="flex items-center">
+                <input type="radio" name="payment" class="mr-4">
+                <div class="flex items-center">
+                  <i class="bi bi-paypal text-2xl mr-3"></i>
+                  <div>
+                    <div class="font-medium">PayPal</div>
+                  </div>
+                </div>
+              </div>
+            </label>
+            
+            <label class="flex items-center justify-between p-4 border border-white/10 rounded-xl cursor-pointer hover:border-red-500 transition">
+              <div class="flex items-center">
+                <input type="radio" name="payment" class="mr-4">
+                <div class="flex items-center">
+                  <i class="bi bi-apple text-2xl mr-3"></i>
+                  <div>
+                    <div class="font-medium">Apple Pay</div>
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+          
+          <!-- Card Details -->
+          <div class="mt-8 space-y-6">
+            <div>
+              <label class="block text-sm font-medium mb-2">Card Number</label>
+              <input type="text" placeholder="1234 5678 9012 3456" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+            
+            <div class="grid grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium mb-2">Expiry Date</label>
+                <input type="text" placeholder="MM/YY" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+              </div>
+              
+              <div>
+                <label class="block text-sm font-medium mb-2">CVC</label>
+                <input type="text" placeholder="123" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+              </div>
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium mb-2">Name on Card</label>
+              <input type="text" class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-red-500 transition">
+            </div>
+          </div>
+        </div>
+      </div>
 
-   <!-- Divider -->
-   <div class="border-t border-gray-700 mt-12 pt-8">
-     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-       <ul class="flex flex-wrap gap-6 text-xs text-gray-400">
-         <li><a href="#" class="hover:text-red-600 transition">Terms & Conditions</a></li>
-         <li><a href="#" class="hover:text-red-600 transition">Privacy Policy</a></li>
-         <li><a href="#" class="hover:text-red-600 transition">Cookies</a></li>
-       </ul>
-       <p class="text-xs text-gray-400 md:text-right">© 2026. Epstein Shop. All rights reserved.</p>
-     </div>
-   </div>
- </div>
- </footer>
-          <!-- End Footer -->
+      <!-- Right Column: Order Summary -->
+      <div class="lg:col-span-1">
+        <div class="glass rounded-2xl p-6 sticky top-32">
+          <h2 class="text-xl font-bold mb-6">Order Summary</h2>
+          
+          <!-- Order Items -->
+          <div class="space-y-4 mb-6">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                  <img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-4.0.1&auto=format&fit=crop&w=200&q=80" 
+                       alt="Oversized Tee" 
+                       class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <div class="font-medium">Oversized Tee</div>
+                  <div class="text-sm text-gray-400">Black • M</div>
+                  <div class="text-sm text-gray-400">Qty: 1</div>
+                </div>
+              </div>
+              <div class="font-medium">$48</div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                  <img src="983902s.webp" 
+                       alt="Cargo Pants" 
+                       class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <div class="font-medium">Cargo Pants</div>
+                  <div class="text-sm text-gray-400">Olive • L</div>
+                  <div class="text-sm text-gray-400">Qty: 1</div>
+                </div>
+              </div>
+              <div class="font-medium">$89</div>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <div class="w-16 h-16 rounded-lg overflow-hidden mr-4">
+                  <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?ixlib=rb-4.0.1&auto=format&fit=crop&w=200&q=80" 
+                       alt="Hoodie" 
+                       class="w-full h-full object-cover">
+                </div>
+                <div>
+                  <div class="font-medium">Premium Hoodie</div>
+                  <div class="text-sm text-gray-400">Gray • M</div>
+                  <div class="text-sm text-gray-400">Qty: 1</div>
+                </div>
+              </div>
+              <div class="font-medium">$65</div>
+            </div>
+          </div>
+          
+          <!-- Order Totals -->
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between">
+              <span class="text-gray-400">Subtotal</span>
+              <span>$202</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Shipping</span>
+              <span class="text-red-400">Free</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Tax</span>
+              <span>$16.16</span>
+            </div>
+            <div class="border-t border-gray-700 pt-4">
+              <div class="flex justify-between text-lg font-bold">
+                <span>Total</span>
+                <span>$218.16</span>
+              </div>
+              <p class="text-sm text-gray-400 mt-2">USD</p>
+            </div>
+          </div>
+
+          <!-- Promo Code -->
+          <div class="mb-6">
+            <div class="flex gap-2">
+              <input type="text" 
+                     placeholder="Promo code" 
+                     class="flex-1 px-4 py-3 bg-white/5 border border-white/10 rounded-full focus:outline-none focus:border-red-500 transition">
+              <button class="px-6 py-3 border border-white/20 hover:border-red-500 rounded-full transition">
+                Apply
+              </button>
+            </div>
+          </div>
+
+          <!-- Complete Order Button -->
+          <button id="completeOrderBtn" class="w-full py-4 bg-red-600 hover:bg-red-700 rounded-full font-medium glow-red transition-all magnetic mb-4">
+          Complete Order
+          </button>
+
+          <!-- Security Info -->
+          <div class="text-center text-sm text-gray-400 mt-6">
+            <p class="flex items-center justify-center mb-2">
+              <i class="bi bi-shield-check text-red-500 mr-2"></i>
+              Secure Payment
+            </p>
+            <p>Your payment information is encrypted and secure.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer (Sama dengan halaman lain) -->
+<footer class="bg-black/60 border-t border-gray-800/50 py-16">
+  <div class="mx-auto max-w-7xl px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <img src="Screenshot-2025-08-14-at-9.19.56-AM-854x675.webp" alt="Epstein" class="h-12 w-12 rounded-full ring-2 ring-red-500/40">
+          <span class="text-2xl font-bold bg-gradient-to-r from-red-500 to-red-400 bg-clip-text text-transparent">Epstein</span>
+        </div>
+        <p class="text-gray-400 text-sm">No fast fashion. Only drops that matter.</p>
+        <div class="flex gap-4 mt-6">
+          <a href="#" class="p-2 rounded-full hover:bg-white/10 transition"><i class="bi bi-instagram text-xl"></i></a>
+          <a href="#" class="p-2 rounded-full hover:bg-white/10 transition"><i class="bi bi-twitter-x text-xl"></i></a>
+          <a href="#" class="p-2 rounded-full hover:bg-white/10 transition"><i class="bi bi-tiktok text-xl"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h4 class="font-semibold mb-4">Shop</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li><a href="#" class="hover:text-red-400 transition">New Arrivals</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Best Sellers</a></li>
+          <li><a href="product.html" class="hover:text-red-400 transition">All Products</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Sale</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="font-semibold mb-4">Support</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li><a href="#" class="hover:text-red-400 transition">Shipping Info</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Returns & Exchanges</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Size Guide</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Contact Us</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h4 class="font-semibold mb-4">About</h4>
+        <ul class="space-y-3 text-sm text-gray-400">
+          <li><a href="#" class="hover:text-red-400 transition">Our Story</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Sustainability</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Careers</a></li>
+          <li><a href="#" class="hover:text-red-400 transition">Wholesale</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-16 pt-8 border-t border-gray-800/50 text-center text-sm text-gray-500">
+      <p>© 2026 Epstein Shop. All rights reserved.</p>
+      <p class="mt-2"><a href="#" class="hover:text-red-400 transition">Privacy Policy</a> • <a href="#" class="hover:text-red-400 transition">Terms of Service</a></p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Form validation and interaction
+  document.querySelectorAll('input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      document.querySelectorAll('label').forEach(label => {
+        label.classList.remove('border-red-500');
+      });
+      this.closest('label').classList.add('border-red-500');
+    });
+  });
+
+  // Set default radio button labels
+  document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+    radio.closest('label').classList.add('border-red-500');
+  });
+
+  // Card number formatting
+  const cardNumberInput = document.querySelector('input[placeholder*="1234"]');
+  if (cardNumberInput) {
+    cardNumberInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+      let matches = value.match(/\d{4,16}/g);
+      let match = matches && matches[0] || '';
+      let parts = [];
+      
+      for (let i=0, len=match.length; i<len; i+=4) {
+        parts.push(match.substring(i, i+4));
+      }
+      
+      if (parts.length) {
+        e.target.value = parts.join(' ');
+      } else {
+        e.target.value = value;
+      }
+    });
+  }
+
+  // Expiry date formatting
+  const expiryInput = document.querySelector('input[placeholder*="MM/YY"]');
+  if (expiryInput) {
+    expiryInput.addEventListener('input', function(e) {
+      let value = e.target.value.replace(/\D/g, '');
+      if (value.length >= 2) {
+        e.target.value = value.substring(0,2) + '/' + value.substring(2,4);
+      }
+    });
+  }
+
+  // Complete Order Button Click
+  const completeOrderBtn = document.getElementById('completeOrderBtn');
+  if (completeOrderBtn) {
+    completeOrderBtn.addEventListener('click', function() {
+      completeOrderBtn.textContent = 'Processing...';
+      completeOrderBtn.disabled = true;
+
+      // Simulate processing delay
+      setTimeout(() => {
+        window.location.href = 'checkout-success.html';
+      }, 2000);
+    });
+  } else {
+    console.error('Element with ID "completeOrderBtn" not found.');
+  }
+
+  // Back to Cart Button Click
+  const backToCartBtn = document.getElementById('backToCartBtn');
+  backToCartBtn.addEventListener('click', function() {
+    window.location.href = 'cart.html';
+  })
+</script>
+
 </body>
 </html>
